@@ -1,0 +1,29 @@
+#######################################
+# Syntax Coloring Map For Test
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+UT390B	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+measure	KEYWORD2
+measurementAvailable	KEYWORD2
+readMeasurement	KEYWORD2
+getLatestMeasurement	KEYWORD2
+getLatestMeasurementTime	KEYWORD2
+triggerMeasurement	KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
