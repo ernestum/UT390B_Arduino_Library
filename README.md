@@ -11,7 +11,7 @@ To install the library just download the .zip file and look [here](http://arduin
 You can also just clone this git repository into you libraries folder:
 ```Bash
 cd <yoursketchbook>/libraries/
-git clone https://github.com/erniejunior/UT390B-Arduino-Library.git
+git clone https://github.com/erniejunior/UT390B_Arduino_Library.git
 ```
 After a restart of the arduino IDE you are done!
 
