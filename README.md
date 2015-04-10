@@ -10,9 +10,16 @@ To install the library just download the .zip file and look [here](http://arduin
 You can also just clone this git repository into you libraries folder:
 ```Bash
 cd <yoursketchbook>/libraries/
-git clone https://github.com/erniejunior/VSync.git
+git clone https://github.com/erniejunior/UT390B-Arduino-Library.git
 ```
 After a restart of the arduino IDE you are done!
 
+Usage
+-----
+Just have a look at the two examples. They are fairly self explaining.
+
 TODO
 ----
+* Burst mode
+* Error codes (look here http://blog.qartis.com/ut390b-error-numbers/). Especially battery low warnings.
+* Switching the laser
