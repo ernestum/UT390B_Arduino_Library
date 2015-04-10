@@ -19,8 +19,8 @@ Usage
 -----
 Just have a look at the two examples. They are fairly self explaining.
 
-TODO
-----
+Possible Improvements
+---------------------
 * Burst mode
 * Error codes (look here http://blog.qartis.com/ut390b-error-numbers/). Especially battery low warnings.
 * Switching the laser
