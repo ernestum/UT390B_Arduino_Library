@@ -28,6 +28,7 @@ Be aware, that the UT390B runs at 2.7V. A 5V Arduino or even a 3.3V would fry it
 * The 2.7V of TX at the UT390B are just enough to trigger a logical 1 at the Arduinos RX. Therefore it can be connected directly.
 * The 5V of the TX at the Arduino would fry our UT390B. Therefore we use a simple voltage divider with two equal, high resistors, to step down the TX voltage coming from the arduino to 2.5V which is enough to trigger a logical 1 at the UT390B side. I would recommend a rather high resitance (around 10kΩ) but mainly make sure that R1 and R2 have the same resistance.
 * Check ![here](http://blog.qartis.com/arduino-laser-distance-meter/) to find out where the RX, TX and GND pins are on the UT390B.
+* When you connect something to the main RX, TX pins, you can not use Serial any more for debuggin/sending data to the computer. I therefore recommend an Arduino with more than one hardware serial (like the mega). Unfortunately I remember having trouble with software serial. Therefore this library does not support it.
 
 Possible Improvements
 ---------------------
