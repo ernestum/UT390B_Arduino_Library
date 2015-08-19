@@ -15,7 +15,7 @@ void setup() {
 
 void loop() {
   //This call to measure() will block until the measurement is done.
-  //Be careful, this can quite long!
+  //Be careful, this can be quite long!
   int distance = laser.measure();
   
   //Report the distance back to the computer
