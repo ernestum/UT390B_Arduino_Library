@@ -11,18 +11,25 @@
 #include "Arduino.h"
 
 // library interface description
+template<typename Serial_T>
 class UT390B
 {
   // user-accessible "public" interface
   public:
-    UT390B(HardwareSerial &serial = Serial) : serial(&serial) {
+    UT390B(Serial_T &serial = Serial) : serial(&serial) {
         serial.begin(115200);
     }
 
-    long measure() {
-        this->triggerMeasurement();
-        while(!measurementAvailable()) {} //just wait until there is a measurement
-        return readMeasurement();
+    long measure(int retries = 0, int timeout = 2000) {
+        long measurement = -1;
+        while(measurement <= 0 && retries >= 0) {
+            this->triggerMeasurement();
+            unsigned long starttime = millis();
+            while(!measurementAvailable() && millis() - starttime < timeout) {} //just wait until there is a measurement
+            measurement = readMeasurement();
+            retries--;
+        }
+        return measurement;
     }
 
     /**
@@ -60,15 +67,23 @@ class UT390B
 
         byte commandtype = readNumber(2);
 
+        int distance;
         switch(commandtype) {
         case 40: // single measurement
-            return readNumber(8);
+            distance = readNumber(8);
             break;
         case 45: // burst measurement
             readNumber(4); //there is a running index in those messages. We parse it but we do not use it right now
-            return readNumber(8);
+            distance = readNumber(8);
             break;
         default: // we have no idea what is going on
+            return -1;
+        }
+        if(distance > 0) {
+            latestMeasurement = distance;
+            latestMeasurementTime = millis();
+            return distance;
+        } else { //TODO: why does this even happen? This should be investigated!
             return -1;
         }
     }
@@ -82,14 +97,27 @@ class UT390B
     }
 
     void triggerMeasurement() {
+        latestTriggerTime = millis();
         serial->print("*004040#");
+    }
+
+    bool continousMeasurement() {
+        if(measurementAvailable()) {
+            readMeasurement(50);
+            triggerMeasurement();
+            return true;
+        } else if(millis() - latestTriggerTime > 1300) {
+            triggerMeasurement();
+        }
+        return false;
     }
 
   // library-accessible "private" interface
   private:
-    Stream* serial;
+    Serial_T* serial;
     long latestMeasurement;
     unsigned long latestMeasurementTime;
+    unsigned long latestTriggerTime;
 
     long readNumber(int numDigits) {
         char buffer[numDigits+1];
