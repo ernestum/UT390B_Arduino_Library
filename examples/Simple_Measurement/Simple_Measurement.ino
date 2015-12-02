@@ -7,7 +7,7 @@
 //Create a new laser distance meter object. Give him the serial to use as an argument.
 //Here we use the Serial1 of e.g. an Arduino Mega because we still want to use the default
 //serial to communicate with the computer.
-UT390B laser(Serial1);
+UT390B<HardwareSerial> laser(Serial1);
 
 void setup() {
   Serial.begin(9600);
