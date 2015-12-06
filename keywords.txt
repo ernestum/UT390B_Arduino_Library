@@ -18,6 +18,7 @@ readMeasurement	KEYWORD2
 getLatestMeasurement	KEYWORD2
 getLatestMeasurementTime	KEYWORD2
 triggerMeasurement	KEYWORD2
+continousMeasurement    KEYWORD2
 
 #######################################
 # Instances (KEYWORD2)

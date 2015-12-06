@@ -40,11 +40,15 @@ class UT390B
      */
     bool measurementAvailable() {
         while(serial->available()) {
-            if(serial->peek() == '*')
+            if(serial->peek() == '*') {
+                Serial.println("There is a new measurement available!");
                 return true;
-            else
-                serial->read();
-//                Serial.println("skipping " + serial->read());
+            }
+            else {
+//                serial->read();
+                Serial.print("Skipping " + serial->read());
+                Serial.println(" to reach the start of a new message indicated by '*'");
+            }
         }
         return false;
     }
@@ -62,28 +66,43 @@ class UT390B
 
         //Read the first 4 digits. They contain the length of the message
         int messageLength = readNumber(4);
+        Serial.print("The message length seems to be ");
+        Serial.println(messageLength);
 
-        if(messageLength < 2) return -1; //No Idea what is going on then
+        if(messageLength < 2) {
+            Serial.println("Message length less than 2 is not expected, return -1");
+            return -1; //No Idea what is going on then
+        }
 
         byte commandtype = readNumber(2);
+        Serial.print("Command Type seems to be ");
+        Serial.println(commandtype);
 
         int distance;
         switch(commandtype) {
         case 40: // single measurement
+            Serial.println("That indicates a single measurement");
             distance = readNumber(8);
             break;
         case 45: // burst measurement
-            readNumber(4); //there is a running index in those messages. We parse it but we do not use it right now
-            distance = readNumber(8);
+            Serial.println("That indicates a burst measurement");
+            {
+                int idx = readNumber(4); //there is a running index in those messages. We parse it but we do not use it right now
+                Serial.print("The running index of the message seems to be");
+                Serial.println(idx);
+            }
             break;
         default: // we have no idea what is going on
             return -1;
         }
+        Serial.print("The distance seems to be ");
+        Serial.println(distance);
         if(distance > 0) {
             latestMeasurement = distance;
             latestMeasurementTime = millis();
             return distance;
         } else { //TODO: why does this even happen? This should be investigated!
+            Serial.println("That is an invalid distance!");
             return -1;
         }
     }
@@ -123,6 +142,7 @@ class UT390B
         char buffer[numDigits+1];
         buffer[numDigits] = '\0';
         serial->readBytes(buffer, numDigits);
+        Serial.print(">"); Serial.println(buffer);
         return atol(buffer);
     }
 };
