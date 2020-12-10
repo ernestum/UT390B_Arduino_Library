@@ -21,7 +21,7 @@ Just have a look at the two examples. They are fairly self explaining.
 
 Connecting to an Arduino
 ------------------------
-Be aware, that the UT390B runs at 2.7V. A 5V Arduino or even a 3.3V would fry it when connected directly. Actually somebody else had [trouble getting it to work with 3.3V at all](https://github.com/erniejunior/UT390B_Arduino_Library/issues/2#issuecomment-163421915). This is how I connected mine to a 5V Arduino:
+Be aware, that the UT390B runs at 2.7V. A 5V Arduino or even a 3.3V would fry it when connected directly. Actually somebody else had [trouble getting it to work with 3.3V at all](https://github.com/ernestum/UT390B_Arduino_Library/issues/2#issuecomment-163421915). This is how I connected mine to a 5V Arduino:
 ![scan 1](https://cloud.githubusercontent.com/assets/1250234/9354402/5a5db5d6-4670-11e5-9d61-9cdacc2f461e.jpeg)
 * The 2.7V can be left free.
 * The 2.7V of TX at the UT390B are just enough to trigger a logical 1 at the Arduinos RX. Therefore it can be connected directly.
